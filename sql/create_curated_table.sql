@@ -1,5 +1,5 @@
 CREATE TABLE curated_schema.feature_engineered_transactions (
-transaction_id INT,
+id INT,
 time BIGINT,
 amount NUMERIC(12, 2),
 rolling_avg_amount_10 DOUBLE PRECISION,
