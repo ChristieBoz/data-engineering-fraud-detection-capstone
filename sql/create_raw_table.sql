@@ -1,5 +1,4 @@
 CREATE TABLE raw_schema.credit_card_transactions (
-transaction_id SERIAL PRIMARY KEY,
 time BIGINT,
 v1 DOUBLE PRECISION,
 v2 DOUBLE PRECISION,
