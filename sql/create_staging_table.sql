@@ -1,5 +1,4 @@
 CREATE TABLE staging_schema.cleaned_transactions (
-transaction_id INT,
 time BIGINT,
 v1 DOUBLE PRECISION,
 v2 DOUBLE PRECISION,
