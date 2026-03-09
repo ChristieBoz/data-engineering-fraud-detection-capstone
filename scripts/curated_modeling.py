@@ -18,7 +18,7 @@ def curated_modeling():
   
   engine = create_engine(f"postgresql+psycopg2://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DB_NAME}")
   
-  #loading baseline (cleaned transactions)
+  #loading curated (feature engineered transactions)
   query = """
   SELECT * FROM curated_schema.feature_engineered_transactions
   """
