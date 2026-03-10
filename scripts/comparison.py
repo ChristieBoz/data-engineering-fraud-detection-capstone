@@ -13,10 +13,13 @@ def comparison():
   print(results)
   
   #visual
-  
-  results.set_index("Model")[["Precision","Recall","F1","ROC_AUC"]].plot(kind="bar")
-  
-  plt.title("Model Performance Comparison")
-  plt.ylabel("Score")
+
+  plt.figure(figsize=(8,5))
+  plt.bar(results["Model"], results[F1"])
+  plt.title("Fraud Detection Model Comparison")
+  plt.ylabel("F1 Score")
   plt.xticks(rotation=30)
+
+  plt.tight_layout()
+  plt.savefig("model_comparison.png")
   plt.show()
