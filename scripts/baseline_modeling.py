@@ -1,11 +1,18 @@
   ## import libraries
   def baseline_modeling():
   import pandas as pd
-  from sqlalchemy import create_engine
-  from sqlalchemy import text
+  import numpy as np
   import psycopg2
   import sklearn
-  from sklearn.metrics import classification_report, roc_auc_score
+    
+  from sqlalchemy import create_engine
+  from sqlalchemy import text
+
+  from sklearn.model_selection import train_test_split
+  from sklearn.preproccesing import StandardScaler
+  from sklearn.linear_model import LogisticRegression
+  from sklearn.ensamble import RandomForestClassifier
+  from sklearn.metrics import precision_score, recall_score, fl_score, roc_auc_score
   
   
   ## create database engine using postgresql connection string:
@@ -122,11 +129,11 @@
   
   #create csv of results
   results_baseline = pd.DataFrame({
-      	   "Model": ["Baseline Logistic", "Baseline Random Forest"],
-   	   "Precision": [precision_score, rf_precision],
-      "Recall": [recall_score, rf_recall],
-      "F1": [f1_score, rf_f1],
-   	   "ROC_AUC": [roc_auc_score, rf_roc]
+    "Model": ["Baseline Logistic", "Baseline Random Forest"],
+   	"Precision": [precision_score, rf_precision],
+    "Recall": [recall_score, rf_recall],
+    "F1": [f1_score, rf_f1],
+   	"ROC_AUC": [roc_auc_score, rf_roc]
   })
   
   results_baseline.to_csv("baseline_results.csv", index=False)
