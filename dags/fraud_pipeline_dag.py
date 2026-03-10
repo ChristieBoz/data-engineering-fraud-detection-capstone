@@ -42,26 +42,26 @@ create_schemas = PostgresOperator(
 )
 # create raw table
 create_raw_table = PostgresOperators(
-	task_id="create_raw_table"
+	task_id="create_raw_table",
 	postgres_conn_id="postgres_default",
 	sql="create_raw_table.sql"
 )
 #create staging table
 create_staging_table = PostgresOperators(
-	task_id="create_staging_table"
+	task_id="create_staging_table",
 	postgres_conn_id="postgres_default",
 	sql=" create_staging_table.sql"
 )
 # load staging table - selects distinct rows(removes dupes) - filters invalid amounts and moves cleaned data from raw to staging
 load_staging = PostgresOperators(
-	task_id="load_staging"
+	task_id="load_staging",
 	postgres_conn_id="postgres_default",
 	sql="load_staging.sql"
 )
 
 # create curated table
 create_curated_table = PostgresOperators(
-	task_id="create_curated_table"
+	task_id="create_curated_table",
 	postgres_conn_id="postgres_default",
 	sql="create_curated_table.sql"
 )
