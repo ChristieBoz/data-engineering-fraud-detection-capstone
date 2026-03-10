@@ -3,7 +3,7 @@ from airflow import DAG
 #runs each python function as a task
 from airflow.operators.python import PythonOperator
 #runs the sql scripts
-from airflow.providers.postgres.operators.postgres import PostgresOperators
+from airflow.providers.postgres.operators.postgres import PostgresOperator
 # used to define when the DAG starts
 from datetime import datetime
 
@@ -11,7 +11,7 @@ import sys
 sys.path.append("/Users/christinaboswell/Desktop/CAPSTONE")
 
 #import the functions from the scripts
-from scripts.load_raw_data.py import load_raw_data
+from scripts.load_raw_data import load_raw_data
 from scripts.feature_engineering import feature_engineering
 from scripts.baseline_modeling import baseline_modeling
 from scripts.curated_modeling import curated_modeling
@@ -28,7 +28,7 @@ default_args = {
 #define the pipeline
 
 with DAG(
-	dag_is="fraud_detection_pipeline", #dag name
+	dag_id="fraud_detection_pipeline", #dag name
 	default_args=default_args,
 	schedule_interval=None, #dag will only run when triggered manually - could be @daily or @hourly
 	catchup=False # prevents airflow from trying to run past scheduled jobs
@@ -94,4 +94,4 @@ task_id="comparison",
 python_callable=comparison #the functions that airflow will execute
 )
 
-create_schemas >> create_raw_table >> load_raw_data_task >> create_staging_table >> load_staging >> create_curated_table >> feature_engineering_task >> baseline_modeling_task >> curated_modeling_task >> comparison_task
+create_schemas >> create_raw_table >> load_raw_data >> create_staging_table >> load_staging >> create_curated_table >> feature_engineering >> baseline_modeling >> curated_modeling >> comparison
