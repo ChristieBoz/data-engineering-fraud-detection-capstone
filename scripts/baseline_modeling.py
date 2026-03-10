@@ -12,7 +12,7 @@
   from sklearn.preproccesing import StandardScaler
   from sklearn.linear_model import LogisticRegression
   from sklearn.ensamble import RandomForestClassifier
-  from sklearn.metrics import precision_score, recall_score, fl_score, roc_auc_score
+  from sklearn.metrics import precision_score, recall_score, fl_score, roc_auc_score, classification_report
   
   
   ## create database engine using postgresql connection string:
