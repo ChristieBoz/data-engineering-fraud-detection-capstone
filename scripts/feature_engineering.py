@@ -67,7 +67,7 @@ def feature_engineering():
   "feature_engineered_transactions",
   engine,
   schema="curated_schema",
-  if_exists="replace",
+  if_exists="append",
   index=False
   )
   
