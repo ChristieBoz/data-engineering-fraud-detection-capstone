@@ -2,11 +2,19 @@ def curated_modeling():
 
   ## import libraries
   import pandas as pd
-  from sqlalchemy import create_engine
-  from sqlalchemy import text
+  import numpy as np
   import psycopg2
   import sklearn
-  from sklearn.metrics import classification_report, roc_auc_score
+    
+  from sqlalchemy import create_engine
+  from sqlalchemy import text
+
+  from sklearn.model_selection import train_test_split
+  from sklearn.preproccesing import StandardScaler
+  from sklearn.linear_model import LogisticRegression
+  from sklearn.ensamble import RandomForestClassifier
+  from sklearn.metrics import precision_score, recall_score, fl_score, roc_auc_score, classification_report
+
   
   
   ## create database engine using postgresql connection string:
@@ -149,4 +157,5 @@ def curated_modeling():
   importance.head(10).plot.barh(x="Feature", y="Importance")
   plt.gca().invert_yaxis()
   plt.title("Top Features Influencing Fraud Detection")
+  plt.savefig("importance.png")
   plt.show()
