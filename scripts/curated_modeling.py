@@ -1,161 +1,161 @@
+## import libraries
+import pandas as pd
+import numpy as np
+import psycopg2
+import sklearn
+import matplotlib.pyplot as plt
+  
+from sqlalchemy import create_engine
+from sqlalchemy import text
+
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import precision_score, recall_score, f1_score, roc_auc_score, classification_report
+
+
 def curated_modeling():
 
-  ## import libraries
-  import pandas as pd
-  import numpy as np
-  import psycopg2
-  import sklearn
-    
-  from sqlalchemy import create_engine
-  from sqlalchemy import text
-
-  from sklearn.model_selection import train_test_split
-  from sklearn.preproccesing import StandardScaler
-  from sklearn.linear_model import LogisticRegression
-  from sklearn.ensamble import RandomForestClassifier
-  from sklearn.metrics import precision_score, recall_score, fl_score, roc_auc_score, classification_report
-
+	## create database engine using postgresql connection string:
+	USERNAME = "postgres"
+	PASSWORD = "password"
+	HOST = "localhost"
+	PORT = "5432"
+	DB_NAME = "fraud_capstone"
+  
+	engine = create_engine(f"postgresql+psycopg2://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DB_NAME}")
+  
+	#loading curated (feature engineered transactions)
+	query = """
+	SELECT * FROM curated_schema.feature_engineered_transactions
+	"""
+  
+	df = pd.read_sql(query, engine)
+  
+	#seperate the features from the target
+	#remove id since its an identifier
+	x = df.drop(columns=["class", "id"])
+	y = df["class"]
+  
+	#split the data
+	x_train, x_test, y_train, y_test = train_test_split(
+		x,
+		y,
+		test_size=0.2,
+		stratify=y,
+		random_state=42
+	)
+  
+	#verify
+	print("Training fraud ratio:", y_train.mean())
+	print("Testing fraud ratio:", y_test.mean())
   
   
-  ## create database engine using postgresql connection string:
-  USERNAME = "postgres"
-  PASSWORD = "password"
-  HOST = "localhost"
-  PORT = "5432"
-  DB_NAME = "fraud_capstone"
+	#create scaler
+	scaler = StandardScaler()
   
-  engine = create_engine(f"postgresql+psycopg2://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DB_NAME}")
+	#fit scaler to training
+	x_train_scaled = scaler.fit_transform(x_train)
   
-  #loading curated (feature engineered transactions)
-  query = """
-  SELECT * FROM curated_schema.feature_engineered_transactions
-  """
+	#fit scaler to testing
+	x_test_scaled = scaler.transform(x_test)
   
-  df = pd.read_sql(query, engine)
+	#verify scaling
+	print(x_train_scaled.mean())
+	print(x_train_scaled.std())
   
-  #seperate the features from the target
-  #remove id since its an identifier
-  x = df.drop(columns=["class", "id"])
-  y = df["class"]
+	#initialization
+	log_model = LogisticRegression(
+		class_weight="balanced",
+		max_iter=1000,
+		random_state=42
+	)
   
-  #split the data
-  x_train, x_test, y_train, y_test = train_test_split(
-      x,
-      y,
-      test_size=0.2,
-      stratify=y,
-      random_state=42
-  )
+	#train the model
   
-  #verify
-  print("Training fraud ratio:", y_train.mean())
-  print("Testing fraud ratio:", y_test.mean())
+	log_model.fit(x_train_scaled, y_train)
   
   
-  #create scaler
-  scaler = StandardScaler()
+	##prediction generation
+	y_pred_log = log_model.predict(x_test_scaled)
   
-  #fit scaler to training
-  x_train_scaled = scaler.fit_transform(x_train)
+	print(y_pred_log)
   
-  #fit scaler to testing
-  x_test_scaled = scaler.transform(x_test)
+	y_prob_log = log_model.predict_proba(x_test_scaled)[:,1]
   
-  #verify scaling
-  print(x_train_scaled.mean())
-  print(x_train_scaled.std())
+	print(y_prob_log)
   
-  #initialization
-  log_model = LogisticRegression(
-      class_weight="balanced",
-      max_iter=1000,
-      random_state=42
-  )
+	print(classification_report(y_test, y_pred_log))
+	print("ROC AUC:", roc_auc_score(y_test, y_prob_log))
   
-  #train the model
+	#view results
+	precision = precision_score(y_test, y_pred_log)
+	recall = recall_score(y_test, y_pred_log)
+	f1 = f1_score(y_test, y_pred_log)
+	roc = roc_auc_score(y_test, y_prob_log)
   
-  log_model.fit(x_train_scaled, y_train)
+	print("Precision:", precision)
+	print("Recall:", recall)
+	print("F1:", f1)
+	print("ROC AUC:", roc)
   
+	#random forest
+	rf_model = RandomForestClassifier(
+	n_estimators=100,
+	class_weight="balanced",
+	random_state=42,
+	n_jobs=-1
+	)
   
-  ##prediction generation
-  y_pred_log = log_model.predict(x_test_scaled)
+	#train model
+	rf_model.fit(x_train, y_train)
   
-  print(y_pred_log)
+	#prediction generation
+	y_pred_rf = rf_model.predict(x_test)
   
-  y_prob_log = log_model.predict_proba(x_test_scaled)[:,1]
+	#probability of fraud
+	y_prob_rf = rf_model.predict_proba(x_test)[:,1]
   
-  print(y_prob_log)
-  
-  print(classification_report(y_test, y_pred_log))
-  print("ROC AUC:", roc_auc_score(y_test, y_prob_log))
-  
-  #view results
-  precision = precision_score(y_test, y_pred_log)
-  recall = recall_score(y_test, y_pred_log)
-  f1 = f1_score(y_test, y_pred_log)
-  roc = roc_auc_score(y_test, y_prob_log)
-  
-  print("Precision:", precision)
-  print("Recall:", recall)
-  print("F1:", f1)
-  print("ROC AUC:", roc)
-  
-  #random forest
-  rf_model = RandomForestClassifier(
-      n_estimators=100,
-      class_weight="balanced",
-      random_state=42,
-      n_jobs=-1
-  )
-  
-  #train model
-  rf_model.fit(x_train, y_train)
-  
-  #prediction generation
-  y_pred_rf = rf_model.predict(x_test)
-  
-  #probability of fraud
-  y_prob_rf = rf_model.predict_proba(x_test)[:,1]
-  
-  #model eval
-  print(classification_report(y_test, y_pred_rf))
-  print("ROC AUC:", roc_auc_score(y_test, y_prob_rf))
+	#model eval
+	print(classification_report(y_test, y_pred_rf))
+	print("ROC AUC:", roc_auc_score(y_test, y_prob_rf))
   
   
-  #metrics
-  rf_precision = precision_score(y_test, y_pred_rf)
-  rf_recall = recall_score(y_test, y_pred_rf)
-  rf_f1 = f1_score(y_test, y_pred_rf)
-  rf_roc = roc_auc_score(y_test, y_prob_rf)
+	#metrics
+	rf_precision = precision_score(y_test, y_pred_rf)
+	rf_recall = recall_score(y_test, y_pred_rf)
+	rf_f1 = f1_score(y_test, y_pred_rf)
+	rf_roc = roc_auc_score(y_test, y_prob_rf)
   
-  print("Precision:", rf_precision)
-  print("Recall:", rf_recall)
-  print("F1:", rf_f1)
-  print("ROC AUC:", rf_roc)
+	print("Precision:", rf_precision)
+	print("Recall:", rf_recall)
+	print("F1:", rf_f1)
+	print("ROC AUC:", rf_roc)
   
-  #create csv of results
-  results_curated = pd.DataFrame({
-      "Model": ["Curated Logistic", "Curated Random Forest"],
-      "Precision": [precision_score, rf_precision],
-      "Recall": [recall_score, rf_recall],
-      "F1": [f1_score, rf_f1],
-      "ROC_AUC": [roc_auc_score, rf_roc]
-  })
+	#create csv of results
+	results_curated = pd.DataFrame({
+	"Model": ["Curated Logistic", "Curated Random Forest"],
+	"Precision": [precision, rf_precision],
+	"Recall": [recall, rf_recall],
+	"F1": [f1, rf_f1],
+	"ROC_AUC": [roc, rf_roc]
+	})
   
-  results_curated.to_csv("curated_results.csv", index=False)	
+	results_curated.to_csv("curated_results.csv", index=False)	
   
-  #importance
-  importance = pd.DataFrame({
-      "Feature": x_train.columns,
-      "Importance": rf_model.feature_importances_
-  })
+	#importance
+	importance = pd.DataFrame({
+		"Feature": x_train.columns,
+		"Importance": rf_model.feature_importances_
+	})
   
-  importance = importance.sort_values(by="Importance", ascending=False)
+	importance = importance.sort_values(by="Importance", ascending=False)
   
-  print(importance.head(10))
+	print(importance.head(10))
   
-  importance.head(10).plot.barh(x="Feature", y="Importance")
-  plt.gca().invert_yaxis()
-  plt.title("Top Features Influencing Fraud Detection")
-  plt.savefig("importance.png")
-  plt.show()
+	importance.head(10).plot.barh(x="Feature", y="Importance")
+	plt.gca().invert_yaxis()
+	plt.title("Top Features Influencing Fraud Detection")
+	plt.savefig("importance.png")
+	plt.show()
