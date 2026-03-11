@@ -9,7 +9,7 @@ def feature_engineering():
   
 	## create database engine using postgresql connection string:
 	USERNAME = "postgres"
-	PASSWORD = "password"
+	PASSWORD = "*******"
 	HOST = "localhost"
 	PORT = "5432"
 	DB_NAME = "fraud_capstone"
