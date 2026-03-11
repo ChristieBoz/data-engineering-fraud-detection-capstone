@@ -66,6 +66,8 @@ architecture/ pipeline_architecture.png
 
 dags/ fraud_pipeline_dag.py
 
+screenshots/ 
+
 scripts/ baseline_modeling.py comparison.py curated_modeling.py feature_engineering.py load_raw_data.py
 
 sql/ create_curated_table.sql create_database.sql create_raw_table.sql create_schemas.sql create_staging_table.sql load_staging.sql
