@@ -22,7 +22,6 @@ def comparison():
 	plt.savefig("f1_model_comparison.png")
 	plt.show()
 
-
 	#ROC AUC	
 
 	plt.figure(figsize=(8,5))
@@ -46,7 +45,6 @@ def comparison():
 	plt.tight_layout()
 	plt.savefig("recall_model_comparison.png")
 	plt.show()
-
 
 	#precision
 
