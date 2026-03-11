@@ -30,7 +30,6 @@ def curated_modeling():
 	query = """
 	SELECT * FROM curated_schema.feature_engineered_transactions
 	"""
-  
 	df = pd.read_sql(query, engine)
   
 	#seperate the features from the target
@@ -50,7 +49,6 @@ def curated_modeling():
 	#verify
 	print("Training fraud ratio:", y_train.mean())
 	print("Testing fraud ratio:", y_test.mean())
-  
   
 	#create scaler
 	scaler = StandardScaler()
@@ -75,7 +73,6 @@ def curated_modeling():
 	#train the model
   
 	log_model.fit(x_train_scaled, y_train)
-  
   
 	##prediction generation
 	y_pred_log = log_model.predict(x_test_scaled)
@@ -120,7 +117,6 @@ def curated_modeling():
 	#model eval
 	print(classification_report(y_test, y_pred_rf))
 	print("ROC AUC:", roc_auc_score(y_test, y_prob_rf))
-  
   
 	#metrics
 	rf_precision = precision_score(y_test, y_pred_rf)
