@@ -12,16 +12,25 @@ Kaggle Dataset > Raw data layer > Staging data layer > Feature Engineering > Cur
 
 ## Schema Layers
 
-Raw Layer: Stores the original transaction dataset without any modifications
+# Raw Layer: 
+Stores the original transaction dataset without any modifications
 PostgreSQL table: raw_schema.credit_card_transactions
 
-Staging Layer: Contains the cleaned and validated transactions
+# Staging Layer: 
+Contains the cleaned and validated transactions
   Tranformations: duplicate removal and validation of transactions amount
 PostgreSQL table: staging_schema.cleaned_transactions
 
-Curated Layer: Contains engineered behavioral features used for ml model training
+# Curated Layer: 
+Contains engineered behavioral features used for ml model training
 PostgreSQL table: curated_schema.feature_engineered_transactions
-  Engineered Features: rolling_avg_amount_10, rolling_std_amount_10, rolling_sum_amount_10, amount_zscore, high_value_flag, and amount_velocity
+Engineered Features: 
+rolling_avg_amount_10 
+rolling_std_amount_10 
+rolling_sum_amount_10 
+amount_zscore 
+high_value_flag 
+amount_velocity
 
 
 
