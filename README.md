@@ -2,13 +2,15 @@ Data Engineering Fraud Detection Capstone
 WGU Capstone Project - Credit Card Fraud Detection 
 PostgreSQL - Apache Airflow - Python
 
-Project Overview:
+## Project Overview:
 This project implemented a full ETL pipeline for credit card fraud detection using the Credit Card Fraud Detection found on Kaggle.com. The goal is to show that if engineered behavioral features are added to a multi-layered ETL pipeline can enchance the performace of fraud detection modeling. 
 This pipeline uses PostgreSQL for data storage, Apache Airflow for pipeline orchestration, Python for feature engineering and machine learning, and scikit-learn for model training and evaluation.
 
-Architechture:
+## Architechture:
 
 Kaggle Dataset > Raw data layer > Staging data layer > Feature Engineering > Curated data layer > Machine Learning models > Model comparision
+
+## Schema Layers
 
 Raw Layer: Stores the original transaction dataset without any modifications
 PostgreSQL table: raw_schema.credit_card_transactions
