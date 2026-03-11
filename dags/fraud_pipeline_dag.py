@@ -8,7 +8,7 @@ from airflow.providers.postgres.operators.postgres import PostgresOperator
 from datetime import datetime
 
 import sys
-sys.path.append("/Users/christinaboswell/Desktop/CAPSTONE")
+sys.path.append("FILE_PATH")
 
 #import the functions from the scripts
 from scripts.load_raw_data import load_raw_data
