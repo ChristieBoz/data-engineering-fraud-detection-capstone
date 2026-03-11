@@ -15,7 +15,7 @@ def load_raw_data():
 
 	engine = create_engine(f"postgresql+psycopg2://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DB_NAME}")
 
-	df = pd.read_csv("/Users/student/Desktop/test/creditcard.csv")
+	df = pd.read_csv("FILE_PATH")
 
 	##initial exploration
 	print(df.head()) # View first 5 rows
