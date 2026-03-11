@@ -75,7 +75,6 @@ README.md
 requirements.txt
 
 ## Execution
-## Execution
 
 ### Requirements
 - Python 3.8 or higher
@@ -95,8 +94,10 @@ requirements.txt
    ```bash
    pip install -r requirements.txt
    
-4.  **Install and configure Apache Airflow** Airflow installation guide
+4.  **Install and configure Apache Airflow**
+    [Install Apache Airflow](https://airflow.apache.org/docs/apache-airflow/stable/installation/index.html)
 
+  
 
 # Results
 The project evaluates whether engineered behavioral features improve fraud detection performance relative to baseline transactional features.
