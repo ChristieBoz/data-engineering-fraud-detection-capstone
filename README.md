@@ -80,14 +80,13 @@ requirements.txt
 
 
 
-
-
-## Requirements
+## Execution
+### Requirements
 - Python 3.8 or higher
 - PostgreSQL 12 or higher (running and accessible)
 - The following Python packages (install with `pip3 install -r requirements.txt`)
 
-## Installation
+### Installation
 
 1. **Install Python 3.8+**  
    Download from [python.org](https://www.python.org/downloads/).
@@ -97,4 +96,9 @@ requirements.txt
 
 3. **Install Python dependencies**
    pip3 install -r requirements.txt
+
+
+# Results
+The project evaluates whether engineered behavioral features will improve fraud detection performance compared to the baseline transactional features.
+
 
