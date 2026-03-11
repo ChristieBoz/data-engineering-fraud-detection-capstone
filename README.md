@@ -13,7 +13,7 @@ The pipeline uses:
 
 ## Architecture
 
-Kaggle Dataset → Raw Data Layer → Staging Data Layer → Feature Engineering → Curated Data Layer → Machine Learning Models → Model Comparison -->
+Kaggle Dataset → Raw Data Layer → Staging Data Layer → Feature Engineering → Curated Data Layer → Machine Learning Models → Model Comparison &#8594;
 
 ### Schema Layers
 
