@@ -13,97 +13,93 @@ The pipeline uses:
 
 ## Architecture
 
-Kaggle Dataset → Raw Data Layer → Staging Data Layer → Feature Engineering → Curated Data Layer → Machine Learning Models → Model Comparison &#8594;
+Kaggle Dataset &#8594; Raw Data Layer &#8594; Staging Data Layer &#8594; Feature Engineering &#8594; Curated Data Layer &#8594; Machine Learning Models &#8594; Model Comparison 
 
 ### Schema Layers
 
-Raw Layer: 
-Stores the original transaction dataset without any modifications
-PostgreSQL table: raw_schema.credit_card_transactions
+### Schema Layers
 
-Staging Layer: 
-Contains the cleaned and validated transactions
-  Transformations: duplicate removal and validation of transaction amount
-PostgreSQL table: 'staging_schema.cleaned_transactions'
+- **Raw Layer:**  
+  Stores the original transaction dataset without modifications  
+  Table: `raw_schema.credit_card_transactions`
 
-Curated Layer: 
-Contains engineered behavioral features used for ML model training
-PostgreSQL table: 'curated_schema.feature_engineered_transactions'
-Engineered Features: 
-* 'rolling_avg_amount_10'
-* 'rolling_std_amount_10'
-* 'rolling_sum_amount_10' 
-* 'amount_zscore' 
-* 'high_value_flag'
-* 'amount_velocity'
+- **Staging Layer:**  
+  Contains cleaned and validated transactions  
+  Transformations: duplicate removal and validation of transaction amount  
+  Table: `staging_schema.cleaned_transactions`
+
+- **Curated Layer:**  
+  Contains engineered behavioral features for ML model training  
+  Table: `curated_schema.feature_engineered_transactions`  
+  Engineered Features:  
+    - `rolling_avg_amount_10`  
+    - `rolling_std_amount_10`  
+    - `rolling_sum_amount_10`  
+    - `amount_zscore`  
+    - `high_value_flag`  
+    - `amount_velocity`
 
 ### Airflow Orchestration
 
-'create_schemas_task >> create_raw_table_task >> load_raw_data_task >> create_staging_table_task >> load_staging_task >> create_curated_table_task >> feature_engineering_task >> baseline_modeling_task >> curated_modeling_task >> comparison_task'
+create_schemas_task >> create_raw_table_task >> load_raw_data_task >> create_staging_table_task >> load_staging_task >> create_curated_table_task >> feature_engineering_task >> baseline_modeling_task >> curated_modeling_task >> comparison_task
 
 ### Model Training and Metrics
 
-Two models were trained on each dataset. Logistic Regression and Random Forest. They were run on "Baseline" and "Curated" datasets. The baseline is the cleaned dataset from the Staging Layer and the curated is the feature engineered data from the Curated Layer.
+### Model Training and Metrics
 
-Baseline = staging_schema.cleaned_transactions
-Curated = curated_schema.feature_engineered_transactions
+Two models are trained on each dataset: **Logistic Regression** and **Random Forest**.  
+- **Baseline:** Cleaned dataset from the Staging Layer (`staging_schema.cleaned_transactions`)
+- **Curated:** Feature-engineered data from the Curated Layer (`curated_schema.feature_engineered_transactions`)
 
-Metrics used
-* Precision
-* Recall
-* F1 Score
-* ROC_AUC
-* Importance
+**Metrics used:**
+- Precision
+- Recall
+- F1 Score
+- ROC_AUC
+- Feature Importance
 
-Results are saved to curated_results.csv
+Results are saved to `curated_results.csv`.
 
 ### Repository Structure
-architecture/
-* 'pipeline_architecture.png'
 
-dags/
-* 'fraud_pipeline_dag.py'
+architecture/ pipeline_architecture.png
 
-scripts/
-* 'baseline_modeling.py'
-* 'comparison.py'
-* 'curated_modeling.py'
-* 'feature_engineering.py'
-* 'load_raw_data.py'
+dags/ fraud_pipeline_dag.py
 
-sql/
-* 'create_curated_table.sql'
-* 'create_database.sql'
-* 'create_raw_table.sql'
-* 'create_schemas.sql'
-* 'create_staging_table.sql'
-* 'load_staging.sql'
+scripts/ baseline_modeling.py comparison.py curated_modeling.py feature_engineering.py load_raw_data.py
 
-README.md
+sql/ create_curated_table.sql create_database.sql create_raw_table.sql create_schemas.sql create_staging_table.sql load_staging.sql
 
-'requirements.txt'
+README.md 
 
-
+requirements.txt
 
 ## Execution
+## Execution
+
 ### Requirements
 - Python 3.8 or higher
 - PostgreSQL 12 or higher (running and accessible)
-- The following Python packages (install with `pip3 install -r requirements.txt`)
+- The Python packages listed in `requirements.txt` (install with `pip install -r requirements.txt`)
+- Apache Airflow installed and configured
 
 ### Installation
 
 1. **Install Python 3.8+**  
-   Download from [python.org](https://www.python.org/downloads/).
+   [Download from python.org](https://www.python.org/downloads/)
 
 2. **Install PostgreSQL 12+**  
-   Download from [postgresql.org](https://www.postgresql.org/download/).
+   [Download from postgresql.org](https://www.postgresql.org/download/)
 
 3. **Install Python dependencies**
-   pip3 install -r requirements.txt
+   ```bash
+   pip install -r requirements.txt
+   
+4.  **Install and configure Apache Airflow** Airflow installation guide
 
 
 # Results
 The project evaluates whether engineered behavioral features improve fraud detection performance relative to baseline transactional features.
+Results are summarized in 'curated_results.csv'
 
 
