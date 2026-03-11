@@ -20,7 +20,7 @@ from scripts.comparison import comparison
 #default dag settings  - owner and start date
 
 default_args = {
-	"owner": "christina",
+	"owner": "owner_name",
   "start_date": datetime(2026, 3, 3),
   "retries": 1
 }
