@@ -90,15 +90,14 @@ requirements.txt
 2. **Install PostgreSQL 12+**  
    [Download from postgresql.org](https://www.postgresql.org/download/)
 
-3. **Install Python dependencies**
+3. **Install and configure Apache Airflow**
+    [Install Apache Airflow](https://airflow.apache.org/docs/apache-airflow/stable/installation/index.html)
+   
+4. **Install Python dependencies**
    ```bash
    pip install -r requirements.txt
-   
-4.  **Install and configure Apache Airflow**
-    [Install Apache Airflow](https://airflow.apache.org/docs/apache-airflow/stable/installation/index.html)
 
   
-
 # Results
 The project evaluates whether engineered behavioral features improve fraud detection performance relative to baseline transactional features.
 Results are summarized in 'curated_results.csv'
