@@ -1,14 +1,19 @@
 # Data Engineering Fraud Detection Capstone
-WGU Capstone Project - Credit Card Fraud Detection 
-PostgreSQL - Apache Airflow - Python
+WGU Capstone Project - Credit Card Fraud Detection  
+**Technologies:** PostgreSQL · Apache Airflow · Python · scikit-learn
 
 ## Project Overview
-This project implemented a full ETL pipeline for credit card fraud detection using the Credit Card Fraud Detection found on Kaggle.com. The goal is to show that if engineered behavioral features are added to a multi-layered ETL pipeline can enchance the performance of fraud detection modeling. 
-This pipeline uses PostgreSQL for data storage, Apache Airflow for pipeline orchestration, Python for feature engineering and machine learning, and scikit-learn for model training and evaluation.
+This project implements a full ETL pipeline for credit card fraud detection using the [Credit Card Fraud Detection dataset](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud) from Kaggle. The goal is to demonstrate that engineered behavioral features, when added to a multi-layered ETL pipeline, can enhance the performance of fraud detection models.
 
-## Architechture
+The pipeline uses:
+- **PostgreSQL** for data storage
+- **Apache Airflow** for pipeline orchestration
+- **Python** for feature engineering and machine learning
+- **scikit-learn** for model training and evaluation
 
-Kaggle Dataset > Raw data layer > Staging data layer > Feature Engineering > Curated data layer > Machine Learning models > Model comparison
+## Architecture
+
+Kaggle Dataset → Raw Data Layer → Staging Data Layer → Feature Engineering → Curated Data Layer → Machine Learning Models → Model Comparison -->
 
 ### Schema Layers
 
@@ -19,22 +24,22 @@ PostgreSQL table: raw_schema.credit_card_transactions
 Staging Layer: 
 Contains the cleaned and validated transactions
   Transformations: duplicate removal and validation of transaction amount
-PostgreSQL table: staging_schema.cleaned_transactions
+PostgreSQL table: 'staging_schema.cleaned_transactions'
 
 Curated Layer: 
 Contains engineered behavioral features used for ML model training
-PostgreSQL table: curated_schema.feature_engineered_transactions
+PostgreSQL table: 'curated_schema.feature_engineered_transactions'
 Engineered Features: 
-* rolling_avg_amount_10 
-* rolling_std_amount_10 
-* rolling_sum_amount_10 
-* amount_zscore 
-* high_value_flag 
-* amount_velocity
+* 'rolling_avg_amount_10'
+* 'rolling_std_amount_10'
+* 'rolling_sum_amount_10' 
+* 'amount_zscore' 
+* 'high_value_flag'
+* 'amount_velocity'
 
 ### Airflow Orchestration
 
-create_schemas_task >> create_raw_table_task >> load_raw_data_task >> create_staging_table_task >> load_staging_task >> create_curated_table_task >> feature_engineering_task >> baseline_modeling_task >> curated_modeling_task >> comparison_task
+'create_schemas_task >> create_raw_table_task >> load_raw_data_task >> create_staging_table_task >> load_staging_task >> create_curated_table_task >> feature_engineering_task >> baseline_modeling_task >> curated_modeling_task >> comparison_task'
 
 ### Model Training and Metrics
 
@@ -54,29 +59,29 @@ Results are saved to curated_results.csv
 
 ### Repository Structure
 architecture/
-* pipeline_architecture.png
+* 'pipeline_architecture.png'
 
 dags/
-* fraud_pipeline_dag.py
+* 'fraud_pipeline_dag.py'
 
 scripts/
-* baseline_modeling.py
-* comparison.py
-* curated_modeling.py
-* feature_engineering.py
-* load_raw_data.py
+* 'baseline_modeling.py'
+* 'comparison.py'
+* 'curated_modeling.py'
+* 'feature_engineering.py'
+* 'load_raw_data.py'
 
 sql/
-* create_curated_table.sql
-* create_database.sql
-* create_raw_table.sql
-* create_schemas.sql
-* create_staging_table.sql
-* load_staging.sql
+* 'create_curated_table.sql'
+* 'create_database.sql'
+* 'create_raw_table.sql'
+* 'create_schemas.sql'
+* 'create_staging_table.sql'
+* 'load_staging.sql'
 
 README.md
 
-requirements.txt
+'requirements.txt'
 
 
 
@@ -99,6 +104,6 @@ requirements.txt
 
 
 # Results
-The project evaluates whether engineered behavioral features improve fraud detection performance relative baseline transactional features.
+The project evaluates whether engineered behavioral features improve fraud detection performance relative to baseline transactional features.
 
 
