@@ -4,7 +4,14 @@ from sqlalchemy import create_engine
 from sqlalchemy import text
 import psycopg2
 
+
 def load_raw_data():
+
+	import os
+
+	AIRFLOW_HOME = os.environ.get('AIRFLOW_HOME', os.path.expanduser('~/airflow'))
+	csv_path = os.path.join(AIRFLOW_HOME, 'data', 'creditcard.csv')
+
 
 	## create database engine using postgresql connection string:
 	USERNAME = "postgres"
@@ -15,7 +22,7 @@ def load_raw_data():
 
 	engine = create_engine(f"postgresql+psycopg2://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DB_NAME}")
 
-	df = pd.read_csv("FILE_PATH")
+	df = pd.read_csv(csv_path)
 
 	##initial exploration
 	print(df.head()) # View first 5 rows
