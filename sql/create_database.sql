@@ -1,1 +1,1 @@
-CREATE DATABASE IF NOT EXISTS fraud_capstone;
+CREATE DATABASE fraud_capstone;
