@@ -3,5 +3,6 @@ numpy
 sqlalchemy
 psycopg2-binary
 scikit-learn
+seaborn
 matplotlib
 apache-airflow[postgres]==2.8.1

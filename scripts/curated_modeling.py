@@ -12,7 +12,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import precision_score, recall_score, f1_score, roc_auc_score, classification_report
+from sklearn.metrics import precision_score, recall_score, f1_score, roc_auc_score, classification_report, accuracy_score
 
 
 def curated_modeling():
@@ -91,11 +91,13 @@ def curated_modeling():
 	recall = recall_score(y_test, y_pred_log)
 	f1 = f1_score(y_test, y_pred_log)
 	roc = roc_auc_score(y_test, y_prob_log)
+	accuracy = accuracy_score(y_test, y_pred_log)
   
 	print("Precision:", precision)
 	print("Recall:", recall)
 	print("F1:", f1)
 	print("ROC AUC:", roc)
+	print("Accuracy:", accuracy)
   
 	#random forest
 	rf_model = RandomForestClassifier(
@@ -123,11 +125,13 @@ def curated_modeling():
 	rf_recall = recall_score(y_test, y_pred_rf)
 	rf_f1 = f1_score(y_test, y_pred_rf)
 	rf_roc = roc_auc_score(y_test, y_prob_rf)
+	rf_accuracy = accuracy_score(y_test, y_pred_rf)
   
-	print("Precision:", rf_precision)
-	print("Recall:", rf_recall)
-	print("F1:", rf_f1)
-	print("ROC AUC:", rf_roc)
+	print("RF Precision:", rf_precision)
+	print("RF Recall:", rf_recall)
+	print("RF F1:", rf_f1)
+	print("RF ROC AUC:", rf_roc)
+	print("RF Accuracy:", rf_accuracy)
   
 	#create csv of results
 	results_curated = pd.DataFrame({
@@ -135,7 +139,8 @@ def curated_modeling():
 	"Precision": [precision, rf_precision],
 	"Recall": [recall, rf_recall],
 	"F1": [f1, rf_f1],
-	"ROC_AUC": [roc, rf_roc]
+	"ROC_AUC": [roc, rf_roc],
+	"Accuracy": [accuracy, rf_accuracy]
 	})
   
 	results_curated.to_csv("curated_results.csv", index=False)	
