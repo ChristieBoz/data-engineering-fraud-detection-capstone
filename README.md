@@ -17,8 +17,6 @@ Kaggle Dataset &#8594; Raw Data Layer &#8594; Staging Data Layer &#8594; Feature
 
 ### Schema Layers
 
-### Schema Layers
-
 - **Raw Layer:**  
   Stores the original transaction dataset without modifications  
   Table: `raw_schema.credit_card_transactions`
@@ -42,8 +40,6 @@ Kaggle Dataset &#8594; Raw Data Layer &#8594; Staging Data Layer &#8594; Feature
 ### Airflow Orchestration
 
 create_schemas_task >> create_raw_table_task >> load_raw_data_task >> create_staging_table_task >> load_staging_task >> create_curated_table_task >> feature_engineering_task >> baseline_modeling_task >> curated_modeling_task >> comparison_task
-
-### Model Training and Metrics
 
 ### Model Training and Metrics
 
