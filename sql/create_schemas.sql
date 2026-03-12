@@ -1,3 +1,3 @@
-CREATE SCHEMA raw_schema;
-CREATE SCHEMA staging_schema;
-CREATE SCHEMA curated_schema;
+CREATE SCHEMA IF NOT EXISTS raw_schema;
+CREATE SCHEMA IF NOT EXISTS staging_schema;
+CREATE SCHEMA IF NOT EXISTS curated_schema;

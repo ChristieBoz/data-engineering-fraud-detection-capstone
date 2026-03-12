@@ -1,4 +1,4 @@
-CREATE TABLE raw_schema.credit_card_transactions (
+CREATE TABLE IF NOT EXISTS raw_schema.credit_card_transactions (
 time BIGINT,
 v1 DOUBLE PRECISION,
 v2 DOUBLE PRECISION,
