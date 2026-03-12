@@ -7,22 +7,31 @@ from airflow.providers.postgres.operators.postgres import PostgresOperator
 # used to define when the DAG starts
 from datetime import datetime
 
+import os
 import sys
-sys.path.append("FILE_PATH")
+
+AIRFLOW_HOME = os.environ.get('AIRFLOW_HOME', os.path.expanduser('~/airflow'))
+SCRIPTS_PATH = os.path.join(AIRFLOW_HOME, 'scripts')
+if SCRIPTS_PATH not in sys.path:
+    sys.path.append(SCRIPTS_PATH)
+
+
+from pendulum import duration
 
 #import the functions from the scripts
-from scripts.load_raw_data import load_raw_data
-from scripts.feature_engineering import feature_engineering
-from scripts.baseline_modeling import baseline_modeling
-from scripts.curated_modeling import curated_modeling
-from scripts.comparison import comparison
+from load_raw_data import load_raw_data
+from feature_engineering import feature_engineering
+from baseline_modeling import baseline_modeling
+from curated_modeling import curated_modeling
+from comparison import comparison
 
 #default dag settings  - owner and start date
 
 default_args = {
 	"owner": "owner_name",
-  "start_date": datetime(2026, 3, 3),
-  "retries": 1
+	"start_date": datetime(2026, 3, 3),
+	"retries": 0,
+	"retry_delay": duration(seconds=2),
 }
 
 #define the pipeline
@@ -38,32 +47,32 @@ with DAG(
 	create_schemas_task = PostgresOperator(
 		task_id="create_schemas",
 		postgres_conn_id="postgres_default",
-		sql="create_schemas.sql"
+		sql="../sql/create_schemas.sql"
 	)
 	# create raw table
 	create_raw_table_task = PostgresOperator(
 		task_id="create_raw_table",
 		postgres_conn_id="postgres_default",
-		sql="create_raw_table.sql"
+		sql="../sql/create_raw_table.sql"
 	)
 	#create staging table
 	create_staging_table_task = PostgresOperator(
 		task_id="create_staging_table",
 		postgres_conn_id="postgres_default",
-		sql="create_staging_table.sql"
+		sql="../sql/create_staging_table.sql"
 	)
 	# load staging table - selects distinct rows(removes dupes) - filters invalid amounts and moves cleaned data from raw to staging
 	load_staging_task = PostgresOperator(
 		task_id="load_staging",
 		postgres_conn_id="postgres_default",
-		sql="load_staging.sql"
+		sql="../sql/load_staging.sql"
 	)
 
 	# create curated table
 	create_curated_table_task = PostgresOperator(
 		task_id="create_curated_table",
 		postgres_conn_id="postgres_default",
-		sql="create_curated_table.sql"
+		sql="../sql/create_curated_table.sql"
 	)
 
 	#loading the csv file into the dataframe and then into postgresql raw table
