@@ -35,7 +35,6 @@ default_args = {
 }
 
 #define the pipeline
-
 with DAG(
 	dag_id="fraud_detection_pipeline", #dag name
 	default_args=default_args,

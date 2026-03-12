@@ -4,4 +4,4 @@ sqlalchemy
 psycopg2-binary
 scikit-learn
 matplotlib
-apache-airflow
+apache-airflow[postgres]==2.8.1
