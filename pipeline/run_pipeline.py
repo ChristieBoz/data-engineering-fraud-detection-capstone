@@ -31,7 +31,7 @@ def run_pipeline():
     class_distribution()
     amount_distribution()
 
-    print("PIPELINE COMPLETE")
+    print("PIPELINE COMPLETE!!")
 
 if __name__ == "__main__":
     run_pipeline()
