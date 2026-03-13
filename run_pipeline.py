@@ -1,10 +1,10 @@
 #import the functions from the scripts
-from load_raw_data import load_raw_data
-from cleaning_data import cleaning_data
-from feature_engineering import feature_engineering
-from baseline_modeling import baseline_modeling
-from curated_modeling import curated_modeling
-from comparison import comparison
+from scripts.load_raw_data import load_raw_data
+from scripts.cleaning_data import cleaning_data
+from scripts.feature_engineering import feature_engineering
+from scripts.baseline_modeling import baseline_modeling
+from scripts.curated_modeling import curated_modeling
+from scripts.comparison import comparison
 from scripts.data_visuals import class_distribution, amount_distribution
 
 def run_pipeline():

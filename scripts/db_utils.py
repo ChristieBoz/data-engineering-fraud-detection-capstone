@@ -1,11 +1,14 @@
 import psycopg2
+from sqlalchemy import create_engine
+
+engine = create_engine("postgresql://postgres:newpassword@localhost:5432/fraud_capstone")
 
 def get_connection():
     conn = psycopg2.connect (
         host="localhost",
-        database="fraud_detection",
+        database="fraud_capstone",
         user="postgres",
-        password="******"
+        password="newpassword"
         )
 
     return conn

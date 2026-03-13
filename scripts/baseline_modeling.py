@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import psycopg2
 import sklearn
+import matplotlib.pyplot as plt
   
 from sqlalchemy import create_engine
 from sqlalchemy import text
@@ -19,7 +20,7 @@ def baseline_modeling():
 
 	## create database engine using postgresql connection string:
 	USERNAME = "postgres"
-	PASSWORD = "*******"
+	PASSWORD = "newpassword"
 	HOST = "localhost"
 	PORT = "5432"
 	DB_NAME = "fraud_capstone"
@@ -140,4 +141,20 @@ def baseline_modeling():
    		"ROC_AUC": [roc, rf_roc], "Accuracy": [accuracy, rf_accuracy]
 	})
   
-	results_baseline.to_csv("~/results/metrics/baseline_results.csv", index=False)
+	results_baseline.to_csv("results/metrics/baseline_results.csv", index=False)
+
+		#importance
+	importance = pd.DataFrame({
+		"Feature": x_train.columns,
+		"Importance": rf_model.feature_importances_
+	})
+  
+	importance = importance.sort_values(by="Importance", ascending=False)
+  
+	print(importance.head(10))
+  
+	importance.head(10).plot.barh(x="Feature", y="Importance")
+	plt.gca().invert_yaxis()
+	plt.title("Top Features Influencing Fraud Detection Baseline")
+	plt.savefig("results/visuals/baseline_importance.png")
+	plt.show()

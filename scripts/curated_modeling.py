@@ -19,7 +19,7 @@ def curated_modeling():
 
 	## create database engine using postgresql connection string:
 	USERNAME = "postgres"
-	PASSWORD = "******"
+	PASSWORD = "newpassword"
 	HOST = "localhost"
 	PORT = "5432"
 	DB_NAME = "fraud_capstone"
@@ -33,8 +33,8 @@ def curated_modeling():
 	df = pd.read_sql(query, engine)
   
 	#seperate the features from the target
-	#remove id since its an identifier
-	x = df.drop(columns=["class", "id"])
+	
+	x = df.drop(columns=["class"])
 	y = df["class"]
   
 	#split the data
@@ -143,7 +143,7 @@ def curated_modeling():
 	"Accuracy": [accuracy, rf_accuracy]
 	})
   
-	results_curated.to_csv("~/results/metrics/curated_results.csv", index=False)	
+	results_curated.to_csv("results/metrics/curated_results.csv", index=False)	
   
 	#importance
 	importance = pd.DataFrame({
@@ -157,6 +157,6 @@ def curated_modeling():
   
 	importance.head(10).plot.barh(x="Feature", y="Importance")
 	plt.gca().invert_yaxis()
-	plt.title("Top Features Influencing Fraud Detection")
-	plt.savefig("~/results/visuals/importance.png")
+	plt.title("Top Features Influencing Fraud Detection Curated")
+	plt.savefig("results/visuals/curated_importance.png")
 	plt.show()

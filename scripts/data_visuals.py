@@ -8,14 +8,14 @@ def class_distribution():
 
     df = pd.read_sql("SELECT class, COUNT(*) as count FROM staging_schema.cleaned_transactions GROUP BY class;", engine)
 
-    counts = df["class"].values_counts()
+    counts = df["class"].value_counts()
 
     counts.plot(kind="bar")
     plt.title("Fraud vs Non-Fraud Transactions")
     plt.xlabel("Class")
     plt.ylabel("Number of Transactions")
 
-    plt.savefig("~/results/visuals/class_distribution.png")
+    plt.savefig("results/visuals/class_distribution.png")
     plt.close()
 
 def amount_distribution():
@@ -31,5 +31,5 @@ def amount_distribution():
     plt.ylabel("Frequency")
     plt.xlim(0, 2000)  # Limit x-axis for better visualization
 
-    plt.savefig("~/results/visuals/amount_distribution.png")
+    plt.savefig("results/visuals/amount_distribution.png")
     plt.close()

@@ -7,11 +7,11 @@ from sqlalchemy import text
 
 def load_raw_data():
 
-	df = pd.read_csv("~/data/creditcard.csv")
+	df = pd.read_csv("~/PROJECTS/data-engineering-fraud-detection-capstone/data/raw/creditcard.csv")
 
 	## create database engine using postgresql connection string:
 	USERNAME = "postgres"
-	PASSWORD = "*******"
+	PASSWORD = "newpassword"
 	HOST = "localhost"
 	PORT = "5432"
 	DB_NAME = "fraud_capstone"
@@ -23,6 +23,8 @@ def load_raw_data():
 	print(df.shape) # Number of rows and columns
 	print(df.columns) # Return the names of the columns
 	print(df.dtypes) # Data type of each column
+
+
 	
 	## load data into sql table :
 	df.to_sql("credit_card_transactions", engine, schema='raw_schema', if_exists='replace', index=False)

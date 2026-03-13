@@ -3,10 +3,10 @@ import matplotlib.pyplot as plt
 
 def comparison():
     
-	baseline = pd.read_csv("baseline_results.csv")
-	curated = pd.read_csv("curated_results.csv")
+	baseline = pd.read_csv("results/metrics/baseline_results.csv")
+	curated = pd.read_csv("results/metrics/curated_results.csv")
 	results = pd.concat([baseline, curated]).reset_index(drop=True)
-	results.to_csv("model_comparison.csv", index=False)
+	results.to_csv("results/metrics/model_comparison.csv", index=False)
   
 	print(results)
   
@@ -19,7 +19,7 @@ def comparison():
 	plt.xticks(rotation=30)
 
 	plt.tight_layout()
-	plt.savefig("f1_model_comparison.png")
+	plt.savefig("results/visuals/f1_model_comparison.png")
 	plt.show()
 
 	#ROC AUC	
@@ -31,7 +31,7 @@ def comparison():
 	plt.xticks(rotation=30)
 
 	plt.tight_layout()
-	plt.savefig("roc_auc_model_comparison.png")
+	plt.savefig("results/visuals/roc_auc_model_comparison.png")
 	plt.show()
 
 	#Recall
@@ -43,7 +43,7 @@ def comparison():
 	plt.xticks(rotation=30)
 
 	plt.tight_layout()
-	plt.savefig("recall_model_comparison.png")
+	plt.savefig("results/visuals/recall_model_comparison.png")
 	plt.show()
 
 	#precision
@@ -55,5 +55,5 @@ def comparison():
 	plt.xticks(rotation=30)
 
 	plt.tight_layout()
-	plt.savefig("precision_model_comparison.png")
+	plt.savefig("results/visuals/precision_model_comparison.png")
 	plt.show()
