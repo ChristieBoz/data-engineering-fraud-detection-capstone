@@ -1,4 +1,6 @@
-CREATE TABLE IF NOT EXISTS curated_schema.feature_engineered_transactions (
+DROP TABLE IF EXISTS curated_schema.feature_engineered_transactions
+
+CREATE TABLE curated_schema.feature_engineered_transactions (
 time BIGINT,
 amount NUMERIC(12, 2),
 rolling_avg_amount_10 DOUBLE PRECISION,

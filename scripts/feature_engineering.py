@@ -1,9 +1,7 @@
 ## import libraries
 import pandas as pd
 from sqlalchemy import create_engine
-from sqlalchemy import text
-import psycopg2
-import sklearn
+
 
 def feature_engineering():
   

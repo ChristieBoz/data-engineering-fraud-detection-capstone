@@ -1,4 +1,6 @@
-CREATE TABLE IF NOT EXISTS staging_schema.cleaned_transactions (
+DROP TABLE IF EXISTS staging_schema.cleaned_transactions
+
+CREATE TABLE staging_schema.cleaned_transactions (
 time BIGINT,
 v1 DOUBLE PRECISION,
 v2 DOUBLE PRECISION,
