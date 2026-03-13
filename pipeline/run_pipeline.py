@@ -5,6 +5,7 @@ from feature_engineering import feature_engineering
 from baseline_modeling import baseline_modeling
 from curated_modeling import curated_modeling
 from comparison import comparison
+from scripts.data_visuals import class_distribution, amount_distribution
 
 def run_pipeline():
 
@@ -25,6 +26,10 @@ def run_pipeline():
 
     print("STEP 6: Model Comparison")
     comparison()
+
+    print("STEP 7: Data Visualizations")
+    class_distribution()
+    amount_distribution()
 
     print("PIPELINE COMPLETE")
 
