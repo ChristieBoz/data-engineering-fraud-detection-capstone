@@ -2,11 +2,11 @@ import psycopg2
 
 def get_connection():
     conn = psycopg2.connect (
-        host="localhost"
-        database="fraud_detection"
-        user="postgres"
+        host="localhost",
+        database="fraud_detection",
+        user="postgres",
         password="******"
-    )
+        )
 
     return conn
 

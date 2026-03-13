@@ -143,7 +143,7 @@ def curated_modeling():
 	"Accuracy": [accuracy, rf_accuracy]
 	})
   
-	results_curated.to_csv("curated_results.csv", index=False)	
+	results_curated.to_csv("~/results/metrics/curated_results.csv", index=False)	
   
 	#importance
 	importance = pd.DataFrame({
@@ -158,5 +158,5 @@ def curated_modeling():
 	importance.head(10).plot.barh(x="Feature", y="Importance")
 	plt.gca().invert_yaxis()
 	plt.title("Top Features Influencing Fraud Detection")
-	plt.savefig("importance.png")
+	plt.savefig("~/results/visuals/importance.png")
 	plt.show()

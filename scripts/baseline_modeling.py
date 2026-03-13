@@ -140,4 +140,4 @@ def baseline_modeling():
    		"ROC_AUC": [roc, rf_roc], "Accuracy": [accuracy, rf_accuracy]
 	})
   
-	results_baseline.to_csv("baseline_results.csv", index=False)
+	results_baseline.to_csv("~/results/metrics/baseline_results.csv", index=False)
